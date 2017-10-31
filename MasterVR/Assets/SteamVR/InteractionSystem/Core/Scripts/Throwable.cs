@@ -7,6 +7,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace Valve.VR.InteractionSystem
 {
@@ -47,10 +48,18 @@ namespace Valve.VR.InteractionSystem
 		public bool snapAttachEaseInCompleted = false;
 
 
-		//-------------------------------------------------
-		void Awake()
+
+        
+        private Text canvasText;
+        private Text canvasText2;
+
+        //-------------------------------------------------
+        void Awake()
 		{
-			velocityEstimator = GetComponent<VelocityEstimator>();
+
+            canvasText = GameObject.Find("UI Debug/Canvas/Text").GetComponent<Text>();
+            canvasText2 = GameObject.Find("UI Debug/Canvas (1)/Text (1)").GetComponent<Text>();
+            velocityEstimator = GetComponent<VelocityEstimator>();
 
 			if ( attachEaseIn )
 			{
@@ -65,7 +74,11 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnHandHoverBegin( Hand hand )
 		{
-			bool showHint = false;
+
+            canvasText.text = "Debug message: OnHandHoverBegin is True";
+            canvasText2.text = "Debug message: OnHandHoverBegin is True";
+
+            bool showHint = false;
 
 			// "Catch" the throwable by holding down the interaction button instead of pressing it.
 			// Only do this if the throwable is moving faster than the prescribed threshold speed,
@@ -93,7 +106,9 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnHandHoverEnd( Hand hand )
 		{
-			ControllerButtonHints.HideButtonHint( hand, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger );
+            canvasText.text = "Debug message:";
+            canvasText2.text = "Debug message:";
+            ControllerButtonHints.HideButtonHint( hand, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger );
 		}
 
 
@@ -103,7 +118,9 @@ namespace Valve.VR.InteractionSystem
 			//Trigger got pressed
 			if ( hand.GetStandardInteractionButtonDown() )
 			{
-				hand.AttachObject( gameObject, attachmentFlags, attachmentPoint );
+                canvasText.text = "Debug message: InteractionButtonDown is True";
+                canvasText2.text = "Debug message: InteractionButtonDown is True";
+                hand.AttachObject( gameObject, attachmentFlags, attachmentPoint );
 				ControllerButtonHints.HideButtonHint( hand, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger );
 			}
 		}
@@ -111,7 +128,12 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnAttachedToHand( Hand hand )
 		{
-			attached = true;
+
+
+            canvasText.text = "Debug message: OnAttachedToHand is True";
+            canvasText2.text = "Debug message: OnAttachedToHand is True";
+
+            attached = true;
 
 			onPickUp.Invoke();
 

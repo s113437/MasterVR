@@ -39,26 +39,26 @@ public class ControllerGrabObject : MonoBehaviour {
     void Update () {
         // 1
 
-        SteamVR_Controller.Device Controller = SteamVR_Controller.Input((int)trackedObj.index);
+       // SteamVR_Controller.Device Controller = SteamVR_Controller.Input((int)trackedObj.index);
 
-        if (Controller.GetHairTriggerDown())
-        {
+     //   if (Controller.GetHairTriggerDown())
+      //  {
             if (collidingObject)
             {
                 Debug.Log("HMmmm");
                 GrabObject();
             }
-        }
+//        }
 
         // 2
-        if (Controller.GetHairTriggerUp())
-        {
+  //      if (Controller.GetHairTriggerUp())
+   //     {
             if (objectInHand)
             {
                 Debug.Log("HMmmm up");
                 ReleaseObject();
             }
-        }
+     //   }
     }
 
     // 1
